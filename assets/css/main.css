@@ -1,0 +1,723 @@
+:root {
+  --black2: rgb(20, 20, 20);
+  --black: rgb(12, 12, 12);
+  --blue: #14ffec;
+  --dark-blue: #0d7377;
+  --white: #fafafa;
+  --white_hover: #dee2e6;
+  --border: rgba(255, 255, 255, 0.1);
+  --interest-box: rgb(8, 25, 44);
+  --interest-box-hover: rgba(8, 25, 64);
+  --portfolio-wrap: rgb(12, 12, 12, 0.6);
+  --selection-white: #d3d3d3;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: var(--white);
+  position: relative;
+  background: transparent;
+  background: var(--black) !important;
+  scroll-behavior: smooth;
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  background: var(--black);
+  background-size: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100vh;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--black);
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: var(--blue);
+}
+
+*::selection {
+  background-color: var(--selection-white);
+  opacity: 0.3;
+  color: var(--black);
+}
+
+@media (min-width: 1024px) {
+  body::before {
+    background-attachment: fixed;
+  }
+}
+a {
+  color: var(--blue);
+}
+
+a:hover {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px var(--white);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--blue);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--white);
+  }
+}
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  transition: ease-in-out 0s;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 997;
+  overflow-y: auto;
+  /* Header Top */
+}
+#header * {
+  transition: ease-in-out 0s;
+}
+#header h1 {
+  font-size: 48px;
+  margin-top: 0px;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+}
+#header h1 a,
+#header h1 a:hover {
+  color: var(--white_hover);
+  line-height: 1;
+  display: inline-block;
+}
+#header h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  color: var(--blue);
+}
+#header h2 span {
+  color: var(--dark-blue);
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 6px;
+}
+#header img {
+  padding: 0;
+  margin: 0;
+}
+#header .social-links {
+  margin-top: 40px;
+  display: flex;
+}
+#header .social-links a {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--border);
+  color: var(--white);
+  line-height: 1;
+  margin-right: 8px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 0 10px #fff;
+  animation: glow 2s ease-in-out infinite;
+}
+#header .social-links a:hover {
+  background: var(--dark-blue);
+  animation: rotate 0.3s ease-in-out;
+}
+#header.header-top {
+  height: 90px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  background: var(--black2);
+}
+#header.header-top .social-links,
+#header.header-top h2 {
+  display: none;
+}
+#header.header-top h1 {
+  margin-right: auto;
+  font-size: 36px;
+}
+#header.header-top .container {
+  display: flex;
+  align-items: center;
+}
+#header.header-top .nav-menu {
+  margin: 0;
+}
+
+@media (max-width: 767.98px) {
+  #header.header-top {
+    height: 60px;
+  }
+  #header.header-top h1 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 991.98px) {
+  #header h1 {
+    font-size: 36px;
+  }
+  #header h2 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  #header .social-links {
+    margin-top: 15px;
+  }
+  #header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu {
+  margin-top: 35px;
+}
+.nav-menu ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav-menu ul li + li {
+  margin-left: 30px;
+}
+.nav-menu ul li a {
+  display: block;
+  position: relative;
+  color: var(--white);
+  font-size: 19px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+.nav-menu ul li a:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--blue);
+  visibility: hidden;
+  width: 0px;
+  transition: all 0.3s ease-in-out 0s;
+}
+.nav-menu ul a:hover:before,
+.nav-menu ul li:hover > a:before,
+.nav-menu ul .active > a:before {
+  visibility: visible;
+  width: 25px;
+}
+.nav-menu ul a:hover,
+.nav-menu ul .active > a,
+.nav-menu ul li:hover > a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  background: none;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  line-height: 1;
+  cursor: pointer;
+  text-align: right;
+  color: var(--white);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 55px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  z-index: 9999;
+  overflow-y: auto;
+  background: var(--black);
+  transition: ease-in-out 0s;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 10px;
+  padding: 10px 0;
+  border: 2px solid var(--border);
+}
+.mobile-nav i {
+  color: var(--white);
+}
+.mobile-nav * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mobile-nav a {
+  display: block;
+  position: relative;
+  color: var(--white);
+  padding: 10px 20px;
+  font-weight: 500;
+  outline: none;
+}
+.mobile-nav a:hover,
+.mobile-nav .active > a,
+.mobile-nav li:hover > a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.mobile-nav-overly {
+  width: 100%;
+  height: 100%;
+  z-index: 9997;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: rgba(9, 9, 9, 0.6);
+  overflow: hidden;
+  display: none;
+  transition: ease-in-out 0s;
+}
+
+.mobile-nav-active {
+  overflow: hidden;
+}
+.mobile-nav-active .mobile-nav {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-nav-active .mobile-nav-toggle i {
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 140px;
+  bottom: 100%;
+  opacity: 0;
+  z-index: 2;
+}
+section.section-show {
+  top: 70px;
+  bottom: auto;
+  opacity: 1;
+  padding-bottom: 0px;
+}
+section .container {
+  background: var(--black);
+  padding: 30px;
+}
+
+@media (max-width: 768px) {
+  section {
+    top: 120px;
+  }
+  section.section-show {
+    top: 80px;
+  }
+}
+.section-title h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 20px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+}
+.section-title h2::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  display: inline-block;
+  background: var(--white);
+  margin: 4px 10px;
+}
+.section-title p {
+  margin: 0;
+  margin: -15px 0 15px 0;
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  color: var(--white);
+}
+
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about-me .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--blue);
+}
+.about-me .content ul {
+  list-style: none;
+  padding: 0;
+}
+.about-me .content ul li {
+  padding-bottom: 10px;
+}
+.about-me .content ul i {
+  font-size: 20px;
+  padding-right: 2px;
+  color: var(--blue);
+}
+.about-me .content ul i::before {
+  color: var(--blue) !important;
+}
+.about-me .content p:last-child {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Interests
+--------------------------------------------------------------*/
+.interests .icon-box {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: var(--interest-box);
+  transition: ease-in-out 0.3s;
+}
+.interests .icon-box i {
+  font-size: 32px;
+  padding-right: 10px;
+  line-height: 1;
+}
+.interests .icon-box h3 {
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 16px;
+  color: #fff;
+}
+.interests .icon-box:hover {
+  background: var(--interest-box-hover);
+}
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.services .icon-box {
+  text-align: center;
+  background: var(--interest-box);
+  padding: 40px 40px;
+  transition: all ease-in-out 0.3s;
+  margin: 10px;
+}
+.services .icon-box .icon {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+  background: var(--blue);
+  border-radius: 5px;
+  transition: all 0.3s ease-out 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transform-style: preserve-3d;
+}
+.services .icon-box .icon i {
+  color: var(--white);
+  font-size: 28px;
+}
+.services .icon-box .icon::before {
+  position: absolute;
+  content: "";
+  left: -8px;
+  top: -8px;
+  height: 100%;
+  width: 100%;
+  background: var(--border);
+  border-radius: 5px;
+  transition: all 0.3s ease-out 0s;
+  transform: translateZ(-1px);
+}
+.services .icon-box h4 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+.services .icon-box h4 a {
+  color: var(--white);
+}
+.services .icon-box p {
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.services .icon-box:hover {
+  background: var(--interest-box-hover);
+  border-color: var(--blue);
+}
+.services .icon-box:hover .icon {
+  background: var(--white);
+}
+.services .icon-box:hover .icon::before {
+  background: var(--dark-blue);
+}
+.services .icon-box:hover i {
+  color: var(--dark-blue);
+}
+.services .icon-box:hover p {
+  color: var(--blue);
+}
+.services .icon-box:hover h4 a {
+  color: var(--blue);
+}
+
+/*--------------------------------------------------------------
+# Portfolio
+--------------------------------------------------------------*/
+.portfolio .portfolio-item {
+  margin-bottom: 30px;
+}
+.portfolio #portfolio-flters {
+  padding: 0;
+  margin: 0 auto 15px auto;
+  list-style: none;
+  text-align: center;
+  border-radius: 50px;
+  padding: 2px 15px;
+}
+.portfolio #portfolio-flters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 16px 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--border);
+  margin: 0 3px 10px 3px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+}
+.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+  background: var(--dark-blue);
+}
+.portfolio #portfolio-flters li:last-child {
+  margin-right: 0;
+}
+.portfolio .portfolio-wrap {
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background: var(--portfolio-wrap);
+}
+.portfolio .portfolio-wrap::before {
+  content: "";
+  background: var(--portfolio-wrap);
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 30px;
+  bottom: 30px;
+  transition: all ease-in-out 0.3s;
+  z-index: 2;
+  opacity: 0;
+}
+.portfolio .portfolio-wrap .portfolio-info {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: 3;
+  transition: all ease-in-out 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.portfolio .portfolio-wrap .portfolio-info::before {
+  display: block;
+  content: "";
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  border-top: 3px solid var(--white);
+  border-left: 3px solid var(--white);
+  transition: all 0.5s ease 0s;
+  z-index: 9994;
+}
+.portfolio .portfolio-wrap .portfolio-info::after {
+  display: block;
+  content: "";
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+  border-bottom: 3px solid var(--white);
+  border-right: 3px solid var(--white);
+  transition: all 0.5s ease 0s;
+  z-index: 9994;
+}
+.portfolio .portfolio-wrap .portfolio-info h4 {
+  font-size: 20px;
+  color: var(--white);
+  font-weight: 600;
+}
+.portfolio .portfolio-wrap .portfolio-info p {
+  color: var(--white);
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+}
+.portfolio .portfolio-wrap .portfolio-links {
+  text-align: center;
+  z-index: 4;
+}
+.portfolio .portfolio-wrap .portfolio-links a {
+  color: var(--white);
+  margin: 0 2px;
+  font-size: 28px;
+  display: inline-block;
+  transition: 0.3s;
+}
+.portfolio .portfolio-wrap .portfolio-links a:hover {
+  color: var(--blue);
+}
+.portfolio .portfolio-wrap:hover::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+}
+.portfolio .portfolio-wrap:hover .portfolio-info {
+  opacity: 1;
+}
+.portfolio .portfolio-wrap:hover .portfolio-info::before {
+  top: 15px;
+  left: 15px;
+}
+.portfolio .portfolio-wrap:hover .portfolio-info::after {
+  bottom: 15px;
+  right: 15px;
+}
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact .info-box {
+  color: var(--black2);
+  padding: 20px;
+  width: 100%;
+  background: var(--interest-box);
+}
+.contact .info-box i.bx {
+  font-size: 24px;
+  color: var(--white);
+  border-radius: 50%;
+  padding: 14px;
+  float: left;
+  background: var(--border);
+}
+.contact .info-box h3 {
+  font-size: 20px;
+  color: var(--blue);
+  font-weight: 700;
+  margin: 10px 0 8px 68px;
+}
+.contact .info-box p {
+  padding: 0;
+  color: var(--white);
+  line-height: 24px;
+  font-size: 14px;
+  margin: 0 0 0 68px;
+}
+.contact .info-box .social-links {
+  margin: 5px 0 0 68px;
+  display: flex;
+}
+.contact .info-box .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  color: var(--blue);
+  line-height: 1;
+  margin-right: 12px;
+  transition: 0.3s;
+  box-shadow: 0 0 7px var(--white);
+  border-radius: 50%;
+  animation: glow 2s ease-in-out infinite;
+}
+.contact .info-box .social-links a:hover .bx {
+  color: var(--blue);
+  animation: rotate 0.3s ease-in-out;
+}
+
+/*# sourceMappingURL=main.css.map */

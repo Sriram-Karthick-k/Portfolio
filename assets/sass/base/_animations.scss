@@ -1,0 +1,27 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px var(--white);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--blue);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--white);
+  }
+}

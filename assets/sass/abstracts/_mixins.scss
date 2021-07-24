@@ -1,0 +1,22 @@
+@mixin grid($count, $margin-right, $margin-bottom, $padding) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  .coloum {
+    margin-right: $margin-right;
+    margin-bottom: $margin-bottom;
+    padding: $padding;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 ((100% - (($count - 1) * $margin-right)) / $count);
+    flex: 0 0 ((100% - (($count - 1) * $margin-right)) / $count);
+    max-width: ((100% - (($count - 1) * $margin-right)) / $count);
+    &:nth-child(#{$count}n) {
+      margin-right: 0;
+    }
+    &:nth-last-line(1) {
+      margin-bottom: 0;
+    }
+  }
+}
