@@ -92,6 +92,7 @@
     $(".mobile-nav, .mobile-nav-toggle").hide();
   }
 
+
   // jQuery counterUp
   $('[data-toggle="counter-up"]').counterUp({
     delay: 10,
@@ -140,7 +141,6 @@
         filter: $(this).data('filter')
       });
     });
-
   });
 
   // Initiate venobox (lightbox feature used in portofilo)
