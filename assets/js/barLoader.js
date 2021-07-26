@@ -26,14 +26,14 @@ const language_container=document.querySelector(".skill-bar-container.languages"
 const tools_container=document.querySelector(".skill-bar-container.tools")
 const environment_container=document.querySelector(".skill-bar-container.environments")
 languages.forEach(elem=>{
-  language_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p>"+elem.percentage+"%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
+  language_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p><span class=skill_percentage>"+elem.percentage+"</span>%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
 })
 frameWorks.forEach(elem=>{
-  frameWorks_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p>"+elem.percentage+"%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
+  frameWorks_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p><span class=skill_percentage>"+elem.percentage+"</span>%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
 })
 tools.forEach(elem=>{
-  tools_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p>"+elem.percentage+"%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
+  tools_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p><span class=skill_percentage>"+elem.percentage+"</span>%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
 })
 environments.forEach(elem=>{
-  environment_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p>"+elem.percentage+"%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
+  environment_container.innerHTML+="<div class=skillBox><div class=skill_text><p>"+elem.name+"</p><p><span class=skill_percentage>"+elem.percentage+"</span>%</p></div><div class=skill><div></div><div class=skill_level style=background-color:"+elem.color+" data-width="+elem.percentage+" ></div></div></div>"
 })

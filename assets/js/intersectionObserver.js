@@ -7,7 +7,6 @@ const observer=new IntersectionObserver(function(entries,observer){
     }
   })
 },options)
-console.log(bars)
 bars.forEach(bar=>{
   observer.observe(bar)
 })
