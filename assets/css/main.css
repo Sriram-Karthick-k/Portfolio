@@ -170,6 +170,9 @@ h6 {
 #header.header-top {
   height: 90px;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   left: 0;
   top: 0;
   right: 0;
@@ -269,17 +272,68 @@ h6 {
 .mobile-nav-toggle {
   position: fixed;
   right: 15px;
-  top: 15px;
+  top: 34px;
   z-index: 9998;
   border: 0;
   background: none;
   font-size: 24px;
-  transition: all 0.4s;
   outline: none !important;
   line-height: 1;
   cursor: pointer;
   text-align: right;
   color: var(--white);
+  width: 25px;
+  height: 20px;
+}
+@media (max-width: 767.98px) {
+  .mobile-nav-toggle {
+    top: 15px;
+  }
+}
+.mobile-nav-toggle .menu-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon.top {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  top: 0;
+  left: 0;
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon.bottom {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  bottom: 0;
+  left: 0;
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon.menu-icon-close.middle {
+  width: 0%;
+  opacity: 0;
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon.menu-icon-close.top {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.mobile-nav-toggle .menu-icon-container .navigation-menu-icon.menu-icon-close.bottom {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .mobile-nav {
@@ -291,8 +345,8 @@ h6 {
   z-index: 9999;
   overflow-y: auto;
   background: var(--black);
-  transition: ease-in-out 0s;
-  opacity: 0;
+  transition: ease-in-out 0.3s;
+  height: 0;
   visibility: hidden;
   border-radius: 10px;
   padding: 10px 0;
@@ -320,6 +374,10 @@ h6 {
   color: var(--blue);
   text-decoration: none;
 }
+.mobile-nav::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--black);
+}
 
 .mobile-nav-overly {
   width: 100%;
@@ -338,7 +396,7 @@ h6 {
   overflow: hidden;
 }
 .mobile-nav-active .mobile-nav {
-  opacity: 1;
+  height: 100%;
   visibility: visible;
 }
 .mobile-nav-active .mobile-nav-toggle i {
@@ -356,6 +414,10 @@ section {
   bottom: 100%;
   opacity: 0;
   z-index: 2;
+  transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
 }
 section.section-show {
   top: 70px;

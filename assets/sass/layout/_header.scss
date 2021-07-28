@@ -80,6 +80,9 @@
   &.header-top {
     height: 90px;
     position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     left: 0;
     top: 0;
     right: 0;

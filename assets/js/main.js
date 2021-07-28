@@ -14,16 +14,19 @@
       var target = $(hash);
       if (target.length) {
         e.preventDefault();
-
         if ($(this).parents('.nav-menu, .mobile-nav').length) {
           $('.nav-menu .active, .mobile-nav .active').removeClass('active');
-          $(this).closest('li').addClass('active');
+          $("."+$(this)[0].parentNode.classList[0]).addClass("active")
         }
-
         if (hash == '#header') {
           $('#header').removeClass('header-top');
           $("section").removeClass('section-show');
-          return;
+          if ($('body').hasClass('mobile-nav-active')) {
+            $('body').removeClass('mobile-nav-active');
+            $('.mobile-nav-toggle div div').toggleClass('menu-icon-close');
+            $('.mobile-nav-overly').fadeOut();
+          }
+          return
         }
 
         if (!$('#header').hasClass('header-top')) {
@@ -39,12 +42,10 @@
 
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
-          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+          $('.mobile-nav-toggle div div').toggleClass('menu-icon-close');
           $('.mobile-nav-overly').fadeOut();
         }
-
         return false;
-
       }
     }
   });
@@ -69,21 +70,21 @@
       class: 'mobile-nav d-lg-none'
     });
     $('body').append($mobile_nav);
-    $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>');
+    $('body').prepend('<div class="mobile-nav-toggle d-lg-none"><div class="menu-icon-container"><div class="navigation-menu-icon top"></div><div class="navigation-menu-icon middle"></div><div class="navigation-menu-icon bottom"></div></div></div>');
     $('body').append('<div class="mobile-nav-overly"></div>');
-
+    //top close or open the nav when you click the nav
     $(document).on('click', '.mobile-nav-toggle', function(e) {
       $('body').toggleClass('mobile-nav-active');
-      $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+      $('.mobile-nav-toggle div div').toggleClass('menu-icon-close');
       $('.mobile-nav-overly').toggle();
     });
-
+    //to close the  nav when you click on the screen 
     $(document).click(function(e) {
       var container = $(".mobile-nav, .mobile-nav-toggle");
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
-          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+          $('.mobile-nav-toggle div div').toggleClass('menu-icon-close');
           $('.mobile-nav-overly').fadeOut();
         }
       }
