@@ -1,0 +1,32 @@
+[
+  {
+    "id": "project-1",
+    "title": "Your Project Title",
+    "description": "Describe what your project does and the problem it solves. Keep it to 2–3 sentences so it reads cleanly on the card.",
+    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Prisma"],
+    "github": "https://github.com/Sriram-Karthick-k/your-repo",
+    "demo": "https://your-project.vercel.app",
+    "featured": true,
+    "year": 2025
+  },
+  {
+    "id": "project-2",
+    "title": "Another Project",
+    "description": "Short description of what this project is about and the stack you used to build it.",
+    "tags": ["React", "Node.js", "PostgreSQL"],
+    "github": "https://github.com/Sriram-Karthick-k/another-repo",
+    "demo": "",
+    "featured": false,
+    "year": 2024
+  },
+  {
+    "id": "project-3",
+    "title": "Side Experiment",
+    "description": "A quick description of this side project, experiment, or tool you built to simplify something.",
+    "tags": ["Next.js", "Supabase", "Tailwind CSS"],
+    "github": "",
+    "demo": "",
+    "featured": false,
+    "year": 2024
+  }
+]
