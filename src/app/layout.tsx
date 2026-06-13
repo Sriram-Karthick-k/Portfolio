@@ -17,9 +17,15 @@ const kalam = Kalam({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-delta-wine-12.vercel.app"),
   title: "Sriram Karthick K — Software Engineer",
   description:
     "Member of Technical Staff at Zoho building Vani — a real-time infinite-canvas whiteboard platform powered by C++, Skia, WebAssembly, and AI.",
+  twitter: {
+    card: "summary_large_image",
+    title: "Sriram Karthick K — Software Engineer",
+    description: "Member of Technical Staff at Zoho building Vani.",
+  },
   keywords: [
     "Sriram Karthick K",
     "Software Engineer",

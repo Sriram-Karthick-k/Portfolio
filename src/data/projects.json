@@ -1,32 +1,32 @@
 [
   {
-    "id": "project-1",
-    "title": "Your Project Title",
-    "description": "Describe what your project does and the problem it solves. Keep it to 2–3 sentences so it reads cleanly on the card.",
-    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Prisma"],
-    "github": "https://github.com/Sriram-Karthick-k/your-repo",
-    "demo": "https://your-project.vercel.app",
+    "id": "chat-app",
+    "title": "Realtime Chat App",
+    "description": "A real-time chat application with live messaging — an early dive into the WebSocket and presence patterns I now work with on Vani.",
+    "tags": ["React", "Node.js", "Socket.IO"],
+    "github": "https://github.com/Sriram-Karthick-k/Chat-app-react",
+    "demo": "",
     "featured": true,
-    "year": 2025
+    "year": 2023
   },
   {
-    "id": "project-2",
-    "title": "Another Project",
-    "description": "Short description of what this project is about and the stack you used to build it.",
-    "tags": ["React", "Node.js", "PostgreSQL"],
-    "github": "https://github.com/Sriram-Karthick-k/another-repo",
+    "id": "final-year-project",
+    "title": "Final-Year ML Project",
+    "description": "My undergraduate capstone — a machine-learning project built, trained and evaluated in Jupyter notebooks.",
+    "tags": ["Python", "Jupyter", "ML"],
+    "github": "https://github.com/Sriram-Karthick-k/final-year-project",
     "demo": "",
     "featured": false,
-    "year": 2024
+    "year": 2023
   },
   {
-    "id": "project-3",
-    "title": "Side Experiment",
-    "description": "A quick description of this side project, experiment, or tool you built to simplify something.",
-    "tags": ["Next.js", "Supabase", "Tailwind CSS"],
-    "github": "",
+    "id": "online-exam",
+    "title": "Online Exam Platform",
+    "description": "A web platform for conducting and auto-grading online examinations, with separate flows for students and examiners.",
+    "tags": ["JavaScript", "Node.js", "MongoDB"],
+    "github": "https://github.com/Sriram-Karthick-k/Online-Exam",
     "demo": "",
     "featured": false,
-    "year": 2024
+    "year": 2022
   }
 ]

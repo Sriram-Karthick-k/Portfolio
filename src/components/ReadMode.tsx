@@ -196,7 +196,7 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
 
         {/* ---------- skills ---------- */}
         <section className="mb-14">
-          <Heading color="#7c3aed">things i know</Heading>
+          <Heading color="#475569">things i know</Heading>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {skills.map((g, i) => (
               <div
@@ -290,8 +290,8 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
 
         {/* ---------- education ---------- */}
         <section className="mb-14">
-          <Heading color="#16a34a">education</Heading>
-          <div className={`${cardClass} p-6 border-l-[5px] border-l-green-500`}>
+          <Heading color="#475569">education</Heading>
+          <div className={`${cardClass} p-6 border-l-[5px] border-l-slate-400`}>
             <p className="font-hand font-bold text-2xl">
               B.E. Computer Science &amp; Engineering
             </p>
@@ -300,7 +300,7 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
             </p>
             <div className="flex items-center gap-3 mt-3 font-marker text-sm text-ink/60">
               <span>2019 — 2023</span>
-              <span className="bg-green-200 px-2 py-0.5 rounded-full text-green-900 font-bold">
+              <span className="bg-blue-100 px-2 py-0.5 rounded-full text-blue-700 font-bold">
                 CGPA 8.65
               </span>
             </div>
@@ -309,7 +309,7 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
 
         {/* ---------- contact ---------- */}
         <section className="mb-12 text-center">
-          <Heading color="#e11d48">
+          <Heading color="#db2777">
             <span className="inline-block">let&apos;s talk!</span>
           </Heading>
           <p className="font-marker text-ink/70 mb-5">
@@ -317,7 +317,7 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
           </p>
           <a
             href="mailto:sriramkarthick.k2001@gmail.com"
-            className="font-marker font-bold text-lg inline-flex items-center gap-2 bg-ink text-board rounded-full py-3 px-7 hover:bg-red-600 transition-colors shadow-[3px_4px_0_rgba(0,0,0,0.18)] break-all"
+            className="font-marker font-bold text-lg inline-flex items-center gap-2 bg-ink text-board rounded-full py-3 px-7 hover:bg-pink-600 transition-colors shadow-[3px_4px_0_rgba(0,0,0,0.18)] break-all"
           >
             <Mail size={18} /> sriramkarthick.k2001@gmail.com
           </a>

@@ -202,7 +202,7 @@ export default function SectionContent({ section }: { section: Section }) {
           </p>
           <div className="flex items-center gap-3 mt-2 font-marker text-[12px] text-ink/60">
             <span>2019 — 2023</span>
-            <span className="bg-green-200 px-1.5 rounded-sm text-green-900 font-bold">
+            <span className="bg-blue-100 px-1.5 rounded-sm text-blue-700 font-bold">
               CGPA 8.65
             </span>
           </div>
@@ -220,7 +220,7 @@ export default function SectionContent({ section }: { section: Section }) {
           </p>
           <a
             href="mailto:sriramkarthick.k2001@gmail.com"
-            className="font-marker font-bold text-[14px] text-center bg-ink text-board rounded-[4px] py-2 px-3 hover:bg-red-600 transition-colors break-all"
+            className="font-marker font-bold text-[14px] text-center bg-ink text-board rounded-[4px] py-2 px-3 hover:bg-pink-600 transition-colors break-all"
           >
             sriramkarthick.k2001@gmail.com
           </a>

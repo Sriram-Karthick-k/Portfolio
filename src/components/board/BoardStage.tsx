@@ -8,6 +8,7 @@ import {
   buildChapters,
   getBoardBounds,
   boundsOfIds,
+  CONNECTOR_LABELS,
   Section,
 } from "@/data/board";
 import RoughBoard from "./RoughBoard";
@@ -15,6 +16,22 @@ import SectionContent from "./SectionContent";
 import BoardToolbar from "./BoardToolbar";
 import BoardIntro from "./BoardIntro";
 import StoryControls from "./StoryControls";
+import InkLayer from "./InkLayer";
+import MarkerTray, { Tool } from "./MarkerTray";
+import SignModal from "./SignModal";
+import {
+  Stroke,
+  Signature,
+  MARKER_COLORS,
+  SIGN_STICKIES,
+  sigPosition,
+  GUESTBOOK_LABEL,
+} from "./ink";
+
+const INK_KEY = "board-ink-v1";
+const SIGN_KEY = "board-sign-v1";
+const STROKE_WIDTH = 3.5;
+const ERASE_RADIUS = 18;
 
 interface Transform {
   x: number;
@@ -27,6 +44,7 @@ const MAX_SCALE = 2.4;
 const clampScale = (s: number) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, s));
 const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const uid = () => Math.random().toString(36).slice(2);
 
 export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -59,6 +77,19 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
   const pinch = useRef<{ dist: number; cx: number; cy: number } | null>(null);
   const animRef = useRef<number | null>(null);
   const commitRaf = useRef<number | null>(null);
+
+  /* ---------- marker / sign state ---------- */
+  const [tool, setTool] = useState<Tool>("pan");
+  const [inkColor, setInkColor] = useState(MARKER_COLORS[0]);
+  const [strokes, setStrokes] = useState<Stroke[]>([]);
+  const [signatures, setSignatures] = useState<Signature[]>([]);
+  const [signOpen, setSignOpen] = useState(false);
+  const [, setLiveTick] = useState(0);
+  const drawingRef = useRef(false);
+  const erasingRef = useRef(false);
+  const curPts = useRef<{ x: number; y: number }[]>([]);
+  const liveRaf = useRef<number | null>(null);
+  const loadedInk = useRef(false);
 
   /* ---------- transform plumbing ---------- */
   const applyStyle = useCallback(() => {
@@ -205,12 +236,64 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
     return () => el.removeEventListener("wheel", onWheel);
   }, [zoomAt, setLayer]);
 
-  /* ---------- pan + pinch ---------- */
+  /* ---------- ink helpers ---------- */
+  const worldPt = (e: React.PointerEvent) => {
+    const rect = viewportRef.current!.getBoundingClientRect();
+    return {
+      x: (e.clientX - rect.left - tf.current.x) / tf.current.scale,
+      y: (e.clientY - rect.top - tf.current.y) / tf.current.scale,
+    };
+  };
+
+  const scheduleLive = () => {
+    if (liveRaf.current != null) return;
+    liveRaf.current = requestAnimationFrame(() => {
+      liveRaf.current = null;
+      setLiveTick((t) => t + 1);
+    });
+  };
+
+  const eraseAt = (wp: { x: number; y: number }) => {
+    const r = ERASE_RADIUS / tf.current.scale;
+    setStrokes((prev) =>
+      prev.filter(
+        (s) => !s.pts.some((p) => Math.hypot(p.x - wp.x, p.y - wp.y) < r)
+      )
+    );
+  };
+
+  /* load + persist user ink/signatures */
+  useEffect(() => {
+    try {
+      const ink = localStorage.getItem(INK_KEY);
+      if (ink) setStrokes(JSON.parse(ink));
+      const sig = localStorage.getItem(SIGN_KEY);
+      if (sig) setSignatures(JSON.parse(sig));
+    } catch {}
+    loadedInk.current = true;
+  }, []);
+  useEffect(() => {
+    if (loadedInk.current)
+      try {
+        localStorage.setItem(INK_KEY, JSON.stringify(strokes));
+      } catch {}
+  }, [strokes]);
+  useEffect(() => {
+    if (loadedInk.current)
+      try {
+        localStorage.setItem(SIGN_KEY, JSON.stringify(signatures));
+      } catch {}
+  }, [signatures]);
+
+  /* ---------- pan + pinch + draw ---------- */
+  const activeTool = (): Tool => (storyDone ? tool : "pan");
+
   const onPointerDown = (e: React.PointerEvent) => {
     const target = e.target as HTMLElement;
     if (target.closest("a, button, input, textarea")) return;
     (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
     if (pointers.current.size === 2) {
       const pts = [...pointers.current.values()];
       pinch.current = {
@@ -219,14 +302,31 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
         cy: (pts[0].y + pts[1].y) / 2,
       };
       panning.current = false;
-    } else panning.current = true;
+      drawingRef.current = false;
+      erasingRef.current = false;
+      setLayer(true);
+      return;
+    }
+
+    const t = activeTool();
+    if (t === "draw") {
+      drawingRef.current = true;
+      curPts.current = [worldPt(e)];
+      scheduleLive();
+    } else if (t === "erase") {
+      erasingRef.current = true;
+      eraseAt(worldPt(e));
+    } else {
+      panning.current = true;
+      document.body.classList.add("board-grabbing");
+    }
     setLayer(true);
-    document.body.classList.add("board-grabbing");
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!pointers.current.has(e.pointerId)) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
     if (pinch.current && pointers.current.size === 2) {
       const pts = [...pointers.current.values()];
       const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
@@ -241,6 +341,16 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
       pinch.current = { dist, cx, cy };
       return;
     }
+
+    if (drawingRef.current) {
+      curPts.current.push(worldPt(e));
+      scheduleLive();
+      return;
+    }
+    if (erasingRef.current) {
+      eraseAt(worldPt(e));
+      return;
+    }
     if (panning.current) {
       tf.current.x += e.movementX;
       tf.current.y += e.movementY;
@@ -253,11 +363,50 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
     pointers.current.delete(e.pointerId);
     if (pointers.current.size < 2) pinch.current = null;
     if (pointers.current.size === 0) {
+      if (drawingRef.current) {
+        if (curPts.current.length > 1) {
+          const stroke: Stroke = {
+            id: uid(),
+            color: inkColor,
+            width: STROKE_WIDTH,
+            pts: curPts.current.slice(),
+          };
+          setStrokes((p) => [...p, stroke]);
+        }
+        drawingRef.current = false;
+        curPts.current = [];
+        scheduleLive();
+      }
+      erasingRef.current = false;
       panning.current = false;
       setLayer(false);
       document.body.classList.remove("board-grabbing");
     }
   };
+
+  /* ---------- signing ---------- */
+  const handleSign = (text: string, name: string) => {
+    const idx = signatures.length;
+    const sig: Signature = {
+      id: uid(),
+      text,
+      name,
+      sticky: SIGN_STICKIES[idx % SIGN_STICKIES.length],
+      rot: ((idx * 37) % 9) - 4,
+    };
+    setSignatures((p) => [...p, sig]);
+    setSignOpen(false);
+    const pos = sigPosition(idx);
+    animateTo(
+      {
+        x: vp.w / 2 - (pos.x + pos.w / 2) * 0.9,
+        y: vp.h / 2 - (pos.y + pos.h / 2) * 0.9,
+        scale: 0.9,
+      },
+      700
+    );
+  };
+  const clearMine = () => setStrokes([]);
 
   /* ---------- reveal bookkeeping ---------- */
   const handleReveal = useCallback((id: string) => {
@@ -347,6 +496,13 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showIntro, storyDone, chapterIndex, vp]);
 
+  const cursorCls =
+    !storyDone || tool === "pan"
+      ? "board-grab"
+      : tool === "draw"
+        ? "cursor-crosshair"
+        : "cursor-cell";
+
   return (
     <div
       ref={viewportRef}
@@ -354,7 +510,7 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
-      className="fixed inset-0 overflow-hidden bg-board board-grab touch-none select-none"
+      className={`fixed inset-0 overflow-hidden bg-board touch-none select-none ${cursorCls}`}
     >
       <div className="pointer-events-none absolute inset-0 z-[1] [background:radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.06)_100%)]" />
 
@@ -377,6 +533,16 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
           }}
         />
 
+        {/* visitor's marker ink (sits on the board, under the cards) */}
+        <InkLayer
+          strokes={strokes}
+          live={
+            drawingRef.current && curPts.current.length > 1
+              ? { id: "live", color: inkColor, width: STROKE_WIDTH, pts: curPts.current }
+              : null
+          }
+        />
+
         <RoughBoard
           steps={flatSteps}
           targetStep={draw.target}
@@ -391,7 +557,7 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
           return (
             <motion.div
               key={s.id}
-              className="board-section absolute"
+              className="board-section absolute rounded-2xl"
               style={{
                 left: s.x,
                 top: s.y,
@@ -399,12 +565,74 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
                 minHeight: s.h,
                 zIndex: 5,
                 pointerEvents: on ? "auto" : "none",
+                boxShadow: "0 18px 36px -22px rgba(15,23,42,0.45)",
               }}
               initial={{ opacity: 0, scale: 0.92 }}
               animate={on ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
               transition={{ type: "spring", stiffness: 240, damping: 22 }}
             >
               <SectionContent section={s} />
+            </motion.div>
+          );
+        })}
+
+        {/* connector labels — appear with their target node */}
+        {CONNECTOR_LABELS.map((l, i) => {
+          const on = revealed.has(l.showWith);
+          return (
+            <motion.div
+              key={i}
+              className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              style={{ left: l.x, top: l.y, zIndex: 6 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: on ? 1 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="font-marker text-[13px] text-slate-500 bg-board/90 px-1.5 py-0.5 rounded-md whitespace-nowrap -rotate-2 inline-block">
+                {l.text}
+              </span>
+            </motion.div>
+          );
+        })}
+
+        {/* guestbook — visitor signatures */}
+        {signatures.length > 0 && (
+          <div
+            className="absolute pointer-events-none"
+            style={{ left: GUESTBOOK_LABEL.x, top: GUESTBOOK_LABEL.y, zIndex: 4 }}
+          >
+            <span className="font-hand font-bold text-2xl text-ink/70">
+              ✎ guestbook
+            </span>
+          </div>
+        )}
+        {signatures.map((sig, i) => {
+          const pos = sigPosition(i);
+          return (
+            <motion.div
+              key={sig.id}
+              className="absolute pointer-events-none p-3 flex flex-col shadow-[2px_4px_10px_rgba(0,0,0,0.16)]"
+              style={{
+                left: pos.x,
+                top: pos.y,
+                width: pos.w,
+                minHeight: pos.h,
+                background: sig.sticky,
+                transform: `rotate(${sig.rot}deg)`,
+                zIndex: 4,
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            >
+              <p className="font-marker text-ink/90 text-[15px] leading-snug flex-1 break-words">
+                {sig.text}
+              </p>
+              {sig.name && (
+                <p className="font-hand text-ink/70 text-lg mt-1 leading-none">
+                  — {sig.name}
+                </p>
+              )}
             </motion.div>
           );
         })}
@@ -465,6 +693,25 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
           onReadMode={onReadMode}
         />
       )}
+
+      {/* the whiteboard is yours once the story's done */}
+      {storyDone && (
+        <MarkerTray
+          tool={tool}
+          color={inkColor}
+          hasInk={strokes.length > 0}
+          onTool={setTool}
+          onColor={setInkColor}
+          onSign={() => setSignOpen(true)}
+          onClear={clearMine}
+        />
+      )}
+
+      <SignModal
+        open={signOpen}
+        onClose={() => setSignOpen(false)}
+        onSubmit={handleSign}
+      />
 
       <AnimatePresence>
         {showIntro && (

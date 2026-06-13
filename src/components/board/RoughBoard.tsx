@@ -156,9 +156,22 @@ export default function RoughBoard({
     if (b.step.type === "rect") onHideRef.current(b.step.revealId);
   };
 
+  const prefersReduced = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const animateStep = (i: number, done: () => void) => {
     const b = builtRef.current[i];
     if (!b) return done();
+    // honour reduced-motion: snap the shape in, skip the stroke animation
+    if (prefersReduced()) {
+      b.paths.forEach((p) => {
+        p.style.strokeDashoffset = "0";
+        if (p.getAttribute("fill") !== "none") p.style.opacity = "1";
+      });
+      if (penRef.current) penRef.current.style.opacity = "0";
+      return done();
+    }
     const durMs = b.step.duration * 1000;
     const t0 = performance.now();
     const strokes = b.paths.filter((p) => p.getAttribute("fill") === "none");
