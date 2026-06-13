@@ -14,6 +14,8 @@ interface Props {
   boardKey: number;
   onReveal: (id: string) => void;
   onHide: (id: string) => void;
+  /** true while a forward draw animation is running */
+  onBusyChange?: (busy: boolean) => void;
 }
 
 interface BuiltStep {
@@ -33,6 +35,7 @@ export default function RoughBoard({
   boardKey,
   onReveal,
   onHide,
+  onBusyChange,
 }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const penRef = useRef<SVGGElement>(null);
@@ -44,8 +47,10 @@ export default function RoughBoard({
 
   const onRevealRef = useRef(onReveal);
   const onHideRef = useRef(onHide);
+  const onBusyRef = useRef(onBusyChange);
   onRevealRef.current = onReveal;
   onHideRef.current = onHide;
+  onBusyRef.current = onBusyChange;
   targetRef.current = targetStep;
 
   /* ---- build (or rebuild) all shapes, hidden ---- */
@@ -203,10 +208,12 @@ export default function RoughBoard({
   const runForward = () => {
     if (runningRef.current) return;
     runningRef.current = true;
+    onBusyRef.current?.(true);
     const loop = () => {
       if (currentRef.current >= targetRef.current) {
         runningRef.current = false;
         if (penRef.current) penRef.current.style.opacity = "0";
+        onBusyRef.current?.(false);
         return;
       }
       const i = currentRef.current;
@@ -230,12 +237,18 @@ export default function RoughBoard({
       if (penRef.current) penRef.current.style.opacity = "0";
       for (let i = currentRef.current - 1; i >= target; i--) hideStep(i);
       currentRef.current = target;
+      onBusyRef.current?.(false);
     } else if (target > currentRef.current) {
       if (animate) {
         runForward();
       } else {
+        // snap remaining steps in instantly (cancels any running animation)
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        runningRef.current = false;
+        if (penRef.current) penRef.current.style.opacity = "0";
         for (let i = currentRef.current; i < target; i++) showStepInstant(i);
         currentRef.current = target;
+        onBusyRef.current?.(false);
       }
     }
   };

@@ -71,6 +71,7 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
   const [boardKey, setBoardKey] = useState(0);
   const [revealed, setRevealed] = useState<Set<string>>(new Set());
   const [storyDone, setStoryDone] = useState(false);
+  const [busy, setBusy] = useState(false); // true while the pen is mid-chapter
 
   const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
   const panning = useRef(false);
@@ -442,6 +443,11 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
   };
 
   const next = () => {
+    // still drawing this chapter? finish it instantly instead of skipping ahead
+    if (busy) {
+      setDraw((d) => ({ target: d.target, animate: false }));
+      return;
+    }
     if (chapterIndex < lastChapter) goToChapter(chapterIndex + 1, true);
     else finish();
   };
@@ -494,7 +500,7 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showIntro, storyDone, chapterIndex, vp]);
+  }, [showIntro, storyDone, chapterIndex, vp, busy]);
 
   const cursorCls =
     !storyDone || tool === "pan"
@@ -550,6 +556,7 @@ export default function BoardStage({ onReadMode }: { onReadMode: () => void }) {
           boardKey={boardKey}
           onReveal={handleReveal}
           onHide={handleHide}
+          onBusyChange={setBusy}
         />
 
         {SECTIONS.map((s: Section) => {
