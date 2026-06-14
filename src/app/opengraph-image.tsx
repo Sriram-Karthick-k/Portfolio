@@ -84,7 +84,7 @@ export default function OpengraphImage() {
             marginTop: 22,
           }}
         >
-          I build Vani — rendering engines in C++ / Skia / WebAssembly.
+          I work on Vani — rendering &amp; collaboration, in C++ / Skia / WASM.
         </div>
 
         {/* bottom marker rule */}

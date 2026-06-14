@@ -69,7 +69,7 @@ export default function SectionContent({ section }: { section: Section }) {
               {[
                 { href: "https://github.com/Sriram-Karthick-k", icon: Github },
                 {
-                  href: "https://www.linkedin.com/in/sriram-karthick-k-707627415/",
+                  href: "https://www.linkedin.com/in/sriram-karthick-k/",
                   icon: Linkedin,
                 },
                 { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail },
@@ -115,9 +115,9 @@ export default function SectionContent({ section }: { section: Section }) {
             about me
           </h2>
           <p className="font-marker text-[14px] text-ink/80 leading-snug">
-            3 years at Zoho on <b>Vani</b> — building the editor&apos;s{" "}
+            Around 3 years at Zoho on <b>Vani</b>, working on the editor&apos;s{" "}
             <span className="text-blue-600 font-bold">C++/Skia</span> rendering
-            core. Currently working on its AI features.
+            and, more recently, its AI features.
           </p>
           <div className="flex items-center gap-1.5 mt-3 font-marker text-[13px] text-ink/60">
             <MapPin size={13} /> Chennai, India
@@ -142,9 +142,9 @@ export default function SectionContent({ section }: { section: Section }) {
           </p>
           <ul className="space-y-1.5">
             {[
-              "Build Vani's cross-platform editor on the C++/Skia engine.",
-              "Primary owner of the Connectors module — C++, WASM & JS.",
-              "Built its AI features; now on the agentic whiteboard.",
+              "Work on Vani's cross-platform editor, built on the C++/Skia engine.",
+              "Help maintain the Connectors module — C++, WASM & JS.",
+              "Worked on its AI features; now helping with the agentic whiteboard.",
             ].map((b, i) => (
               <li
                 key={i}
@@ -234,7 +234,7 @@ export default function SectionContent({ section }: { section: Section }) {
               <Github size={14} /> GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/sriram-karthick-k-707627415/"
+              href="https://www.linkedin.com/in/sriram-karthick-k/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 font-marker text-[13px] flex items-center justify-center gap-1.5 border-2 border-ink/60 rounded-[4px] py-1.5 text-ink/80 hover:bg-ink hover:text-board transition-colors"

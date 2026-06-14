@@ -38,9 +38,9 @@ const skills = [
 ];
 
 const experience = [
-  "Build Vani's cross-platform editor on the C++/Skia engine.",
-  "Primary owner of the Connectors module — C++, WASM & JS.",
-  "Built its AI features; now on the agentic whiteboard.",
+  "Work on Vani's cross-platform editor, built on the C++/Skia engine.",
+  "Help maintain the Connectors module — C++, WASM & JS.",
+  "Worked on its AI features; now helping with the agentic whiteboard.",
 ];
 
 /* a little hand-drawn squiggle under each heading */
@@ -108,7 +108,7 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
                 {[
                   { href: "https://github.com/Sriram-Karthick-k", icon: Github },
                   {
-                    href: "https://www.linkedin.com/in/sriram-karthick-k-707627415/",
+                    href: "https://www.linkedin.com/in/sriram-karthick-k/",
                     icon: Linkedin,
                   },
                   { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail },
@@ -159,9 +159,9 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
         <section className="mb-14">
           <Heading color="#334155">about me</Heading>
           <p className="font-marker text-ink/80 text-lg leading-relaxed">
-            3 years at Zoho on <b>Vani</b> — building the editor&apos;s{" "}
+            Around 3 years at Zoho on <b>Vani</b>, working on the editor&apos;s{" "}
             <span className="bg-blue-100 text-blue-700 px-1 rounded">C++/Skia</span>{" "}
-            rendering core. Currently working on its AI features.
+            rendering and, more recently, its AI features.
           </p>
           <p className="flex items-center gap-1.5 mt-3 font-marker text-ink/60">
             <MapPin size={15} /> Chennai, India
