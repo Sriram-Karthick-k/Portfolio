@@ -10,6 +10,7 @@ import {
   Star,
   FileText,
   PenTool,
+  Code2,
 } from "lucide-react";
 import projectsJson from "@/data/projects.json";
 
@@ -106,16 +107,24 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
 
               <div className="flex flex-wrap items-center gap-2 mt-4">
                 {[
-                  { href: "https://github.com/Sriram-Karthick-k", icon: Github },
+                  { href: "https://github.com/Sriram-Karthick-k", icon: Github, label: "GitHub" },
                   {
                     href: "https://www.linkedin.com/in/sriram-karthick-k/",
                     icon: Linkedin,
+                    label: "LinkedIn",
                   },
-                  { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail },
-                ].map(({ href, icon: Icon }, i) => (
+                  {
+                    href: "https://leetcode.com/u/user6175a/",
+                    icon: Code2,
+                    label: "LeetCode",
+                  },
+                  { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail, label: "Email" },
+                ].map(({ href, icon: Icon, label }, i) => (
                   <a
                     key={i}
                     href={href}
+                    title={label}
+                    aria-label={label}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="w-9 h-9 rounded-full border-2 border-ink/70 flex items-center justify-center text-ink/80 hover:bg-ink hover:text-board transition-colors"

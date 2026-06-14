@@ -8,6 +8,7 @@ import {
   MapPin,
   ExternalLink,
   Star,
+  Code2,
 } from "lucide-react";
 import { Section } from "@/data/board";
 
@@ -67,16 +68,24 @@ export default function SectionContent({ section }: { section: Section }) {
             </p>
             <div className="flex items-center gap-2 mt-3">
               {[
-                { href: "https://github.com/Sriram-Karthick-k", icon: Github },
+                { href: "https://github.com/Sriram-Karthick-k", icon: Github, label: "GitHub" },
                 {
                   href: "https://www.linkedin.com/in/sriram-karthick-k/",
                   icon: Linkedin,
+                  label: "LinkedIn",
                 },
-                { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail },
-              ].map(({ href, icon: Icon }, i) => (
+                {
+                  href: "https://leetcode.com/u/user6175a/",
+                  icon: Code2,
+                  label: "LeetCode",
+                },
+                { href: "mailto:sriramkarthick.k2001@gmail.com", icon: Mail, label: "Email" },
+              ].map(({ href, icon: Icon, label }, i) => (
                 <a
                   key={i}
                   href={href}
+                  title={label}
+                  aria-label={label}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full border-2 border-ink/70 flex items-center justify-center text-ink/80 hover:bg-ink hover:text-board transition-colors"
@@ -240,6 +249,14 @@ export default function SectionContent({ section }: { section: Section }) {
               className="flex-1 font-marker text-[13px] flex items-center justify-center gap-1.5 border-2 border-ink/60 rounded-[4px] py-1.5 text-ink/80 hover:bg-ink hover:text-board transition-colors"
             >
               <Linkedin size={14} /> LinkedIn
+            </a>
+            <a
+              href="https://leetcode.com/u/user6175a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 font-marker text-[13px] flex items-center justify-center gap-1.5 border-2 border-ink/60 rounded-[4px] py-1.5 text-ink/80 hover:bg-ink hover:text-board transition-colors"
+            >
+              <Code2 size={14} /> LeetCode
             </a>
           </div>
         </div>
