@@ -151,9 +151,10 @@ export default function SectionContent({ section }: { section: Section }) {
           </p>
           <ul className="space-y-1.5">
             {[
-              "Work on Vani's cross-platform editor, built on the C++/Skia engine.",
-              "Help maintain the Connectors module — C++, WASM & JS.",
-              "Worked on its AI features; now helping with the agentic whiteboard.",
+              "Develop the Vani editor in C++, WebAssembly & JavaScript (Skia engine).",
+              "Develop server-side features & REST APIs in Java; maintain the Connectors module.",
+              "Built an internal tool that automates the team's local-dev setup, database & operations.",
+              "Develop the platform's AI capabilities; contributing to an upcoming agentic whiteboard.",
             ].map((b, i) => (
               <li
                 key={i}
