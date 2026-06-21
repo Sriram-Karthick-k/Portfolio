@@ -9,6 +9,7 @@ import {
   ExternalLink,
   Star,
   Code2,
+  FolderGit2,
 } from "lucide-react";
 import { Section } from "@/data/board";
 
@@ -265,15 +266,15 @@ export default function SectionContent({ section }: { section: Section }) {
 
     case "projectsHub":
       return (
-        <div className="h-full w-full flex flex-col items-center justify-center text-center px-3">
-          <h2 className="font-hand font-bold text-[30px] text-pink-600 leading-none">
-            my projects
+        <div className="h-full w-full flex flex-col items-center justify-center text-center px-4 py-4">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-pink-100 mb-1.5 shrink-0">
+            <FolderGit2 size={20} className="text-pink-600" />
+          </div>
+          <h2 className="font-hand font-bold text-[26px] text-pink-600 leading-none">
+            projects
           </h2>
           <p className="font-marker text-[12px] text-ink/50 mt-1">
-            add yours in{" "}
-            <code className="bg-pink-100 px-1 rounded text-pink-700">
-              projects.json
-            </code>
+            a few things i&apos;ve built
           </p>
         </div>
       );

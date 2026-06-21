@@ -1,32 +1,22 @@
 [
   {
-    "id": "chat-app",
-    "title": "Realtime Chat App",
-    "description": "A real-time chat application with live messaging — an early dive into the WebSocket and presence patterns I now work with on Vani.",
-    "tags": ["React", "Node.js", "Socket.IO"],
-    "github": "https://github.com/Sriram-Karthick-k/Chat-app-react",
+    "id": "notes-app",
+    "title": "Notes & Sketch App",
+    "description": "A local-first, cross-platform notes & sketch app for desktop, tablet, and mobile — a Flutter UI over a Rust core, with SQLite for local state and CRDT-based sync.",
+    "tags": ["Flutter", "Rust", "SQLite", "CRDT"],
+    "github": "https://github.com/Sriram-Karthick-k/notes-app",
     "demo": "",
     "featured": true,
-    "year": 2023
+    "year": 2026
   },
   {
-    "id": "final-year-project",
-    "title": "Final-Year ML Project",
-    "description": "My undergraduate capstone — a machine-learning project built, trained and evaluated in Jupyter notebooks.",
-    "tags": ["Python", "Jupyter", "ML"],
-    "github": "https://github.com/Sriram-Karthick-k/final-year-project",
+    "id": "zerodha-bot",
+    "title": "Zerodha Trading Bot",
+    "description": "An automated stock-trading bot on Zerodha's Kite API — Next.js with technical-analysis signals, real-time monitoring, and risk management, backed by Prisma.",
+    "tags": ["Next.js", "Prisma", "Kite API", "TypeScript"],
+    "github": "https://github.com/Sriram-Karthick-k/stock-bot",
     "demo": "",
     "featured": false,
-    "year": 2023
-  },
-  {
-    "id": "online-exam",
-    "title": "Online Exam Platform",
-    "description": "A web platform for conducting and auto-grading online examinations, with separate flows for students and examiners.",
-    "tags": ["JavaScript", "Node.js", "MongoDB"],
-    "github": "https://github.com/Sriram-Karthick-k/Online-Exam",
-    "demo": "",
-    "featured": false,
-    "year": 2022
+    "year": 2025
   }
 ]

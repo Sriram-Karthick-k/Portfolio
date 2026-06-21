@@ -56,7 +56,7 @@ const baseSections: Section[] = [
   { id: "contact", kind: "contact", x: -110, y: 880, w: 430, h: 210, color: INK.pink },
   { id: "experience", kind: "experience", x: 1160, y: 110, w: 470, h: 300, color: INK.blue },
   { id: "education", kind: "education", x: 1160, y: 480, w: 470, h: 190, color: INK.slate },
-  { id: "projectsHub", kind: "projectsHub", x: 590, y: 360, w: 300, h: 110, color: INK.pink },
+  { id: "projectsHub", kind: "projectsHub", x: 590, y: 350, w: 300, h: 138, color: INK.pink },
 ];
 
 /* ---- project sticky notes: a tidy 2-column tree under the hub.
@@ -66,8 +66,8 @@ const baseSections: Section[] = [
 const COL_A = 430;
 const COL_B = 760;
 const PW = 290;
-const PH = 215;
-const ROW_STEP = 250;
+const PH = 172;
+const ROW_STEP = 210;
 const BASE_Y = 560;
 
 const projectSections: Section[] = projects.map((p, i) => ({
