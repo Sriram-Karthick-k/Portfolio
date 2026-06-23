@@ -33,16 +33,16 @@ const skills = [
   { label: "languages", items: ["C++", "Java", "JavaScript"] },
   { label: "graphics", items: ["Skia", "WebGPU", "WASM"] },
   { label: "realtime", items: ["WebSockets", "OT"] },
-  { label: "AI", items: ["LLMs", "Embeddings"] },
+  { label: "AI", items: ["LLMs", "OpenAI"] },
   { label: "web", items: ["Next.js", "Tailwind", "React"] },
   { label: "data", items: ["PostgreSQL", "SQLite"] },
 ];
 
 const experience = [
   "Develop the Vani editor in C++, WebAssembly & JavaScript (Skia engine).",
-  "Develop server-side features & REST APIs in Java; maintain the Connectors module.",
-  "Built an internal tool that automates the team's local-dev setup, database & operations.",
-  "Develop the platform's AI capabilities; contributing to an upcoming agentic whiteboard.",
+  "Maintain the Connectors module; also build server-side REST APIs in Java.",
+  "Built & shipped AI features end-to-end — flowchart, ERD & mind-map generation, summarization.",
+  "Built Vani-Labs, an internal tool the team uses daily; now helping ship an agentic whiteboard.",
 ];
 
 /* a little hand-drawn squiggle under each heading */
@@ -169,7 +169,8 @@ export default function ReadMode({ onCanvas }: { onCanvas: () => void }) {
         <section className="mb-14">
           <Heading color="#334155">about me</Heading>
           <p className="font-marker text-ink/80 text-lg leading-relaxed">
-            Around 3 years at Zoho on <b>Vani</b>, working on the editor&apos;s{" "}
+            Around 3 years at Zoho on <b>Vani</b> — a whiteboard a few thousand
+            people use daily. I work on the editor&apos;s{" "}
             <span className="bg-blue-100 text-blue-700 px-1 rounded">C++/Skia</span>{" "}
             rendering and, more recently, its AI features.
           </p>

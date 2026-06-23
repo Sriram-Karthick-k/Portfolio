@@ -125,7 +125,8 @@ export default function SectionContent({ section }: { section: Section }) {
             about me
           </h2>
           <p className="font-marker text-[14px] text-ink/80 leading-snug">
-            Around 3 years at Zoho on <b>Vani</b>, working on the editor&apos;s{" "}
+            Around 3 years at Zoho on <b>Vani</b> — a collaborative whiteboard a few thousand
+            people use daily. I work on the editor&apos;s{" "}
             <span className="text-blue-600 font-bold">C++/Skia</span> rendering
             and, more recently, its AI features.
           </p>
@@ -153,9 +154,9 @@ export default function SectionContent({ section }: { section: Section }) {
           <ul className="space-y-1.5">
             {[
               "Develop the Vani editor in C++, WebAssembly & JavaScript (Skia engine).",
-              "Develop server-side features & REST APIs in Java; maintain the Connectors module.",
-              "Built an internal tool that automates the team's local-dev setup, database & operations.",
-              "Develop the platform's AI capabilities; contributing to an upcoming agentic whiteboard.",
+              "Maintain the Connectors module; also build server-side REST APIs in Java.",
+              "Built & shipped AI features end-to-end — flowchart, ERD & mind-map generation, summarization.",
+              "Built Vani-Labs, an internal tool the team uses daily; now helping ship an agentic whiteboard.",
             ].map((b, i) => (
               <li
                 key={i}
@@ -174,7 +175,7 @@ export default function SectionContent({ section }: { section: Section }) {
         { label: "languages", items: ["C++", "Java", "JavaScript"] },
         { label: "graphics", items: ["Skia", "WebGPU", "WASM"] },
         { label: "realtime", items: ["WebSockets", "OT"] },
-        { label: "AI", items: ["LLMs", "Embeddings"] },
+        { label: "AI", items: ["LLMs", "OpenAI"] },
         { label: "web", items: ["Next.js", "Tailwind", "React"] },
         { label: "data", items: ["PostgreSQL", "SQLite"] },
       ];
